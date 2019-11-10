@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "RevyPow API",
+        "description": "API to get data and manage notification subscriptions"
+    },
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/data": {
+            "get": {
+                "summary": "Gets snow report data",
+                "responses": {
+                    "200": {
+                        "description": "A data object",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "temperatures": {
+                                    "type": "object"
+                                },
+                                "wind": {
+                                    "type": "object"
+                                },
+                                "newSnow": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subscription": {
+            "post": {
+                "summary": "Create a new subscription",
+                "schema": {
+                    "properties": {
+                        "endpoint": {
+                            "type": "string"
+                        },
+                        "expirationTime": {
+                            "type": "number"
+                        },
+                        "keys": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "response": {
+                    "200": {
+                        "description": "Request successful"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes an existing subscription",
+                "response": {
+                    "200": {
+                        "description": "Request successful"
+                    }
+                }
+            }
+        }
+    }
+}
