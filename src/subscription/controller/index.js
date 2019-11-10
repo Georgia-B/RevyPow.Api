@@ -14,16 +14,16 @@ const createSubscription = (req, res) => {
         .then(subscriptions => {
             const existingSub = subscriptions.find(sub => sub.endpoint === subscription.endpoint);
             if (existingSub !== undefined) {
-                return res.end("Subscription already exists");
+                return res.status(400).send("Subscription already exists");
             }
             subscriptions.push(subscription);
             postSubscriptionsPromise(subscriptions)
                 .then(response => {
-                    return res.end("Create successful");
+                    return res.status(200).send("Create successful");
                 })
                 .catch(err => { throw err })
         }).catch(err => {
-            return res.end("Create failed: " + err)
+            return res.status(500).send("Create failed: " + err)
         });
 }
 
@@ -32,15 +32,15 @@ const deleteSubscription = (req, res) => {
     return getSubscriptions().then(subscriptions => {
         const existingSub = subscriptions.find(sub => sub.endpoint === subscription.endpoint);
         if (existingSub === undefined) {
-            return res.end("Subscription doesn't exists");
+            return res.status(400).send("Subscription doesn't exists");
         }
         const updatedSubs = subscriptions.filter(sub => sub.endpoint !== subscription.endpoint);
         postSubscriptionsPromise(updatedSubs)
             .then(response => {
-                return res.end("Delete successful");
+                return res.status(200).send("Delete successful");
             })
             .catch(err => { throw err });
-    }).catch(err => res.end("Delete failed: " + err));
+    }).catch(err => res.status(500).send("Delete failed: " + err));
 }
 
 module.exports = {

@@ -26,7 +26,21 @@
                                 },
                                 "newSnow": {
                                     "type": "object"
+                                },
+                                "dateUpdated": {
+                                    "type": "object"
                                 }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to fetch",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Failed to fetch"
                             }
                         }
                     }
@@ -36,30 +50,63 @@
         "/subscription": {
             "post": {
                 "summary": "Create a new subscription",
-                "schema": {
-                    "properties": {
-                        "endpoint": {
-                            "type": "string"
-                        },
-                        "expirationTime": {
-                            "type": "number"
-                        },
-                        "keys": {
-                            "type": "object"
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "expirationTime": {
+                                    "type": "number"
+                                },
+                                "keys": {
+                                    "type": "object"
+                                }
+                            }
                         }
                     }
                 },
-                "response": {
+                "responses": {
                     "200": {
-                        "description": "Request successful"
+                        "description": "Create successful"
+                    },
+                    "400": {
+                        "description": "Subscription already exists"
+                    },
+                    "500": {
+                        "description": "Create failed"
                     }
                 }
             },
             "delete": {
                 "summary": "Deletes an existing subscription",
-                "response": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "endpoint": {
+                                    "type": "string"
+                                },
+                                "expirationTime": {
+                                    "type": "number"
+                                },
+                                "keys": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
                     "200": {
-                        "description": "Request successful"
+                        "description": "Delete successful"
+                    },
+                    "400": {
+                        "description": "Subscription doesnt exists"
+                    },
+                    "500": {
+                        "description": "Delete failed"
                     }
                 }
             }

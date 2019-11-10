@@ -6,7 +6,7 @@ const getData = (req, res) => {
             return res.json(JSON.parse(response.Body.toString('utf-8')));
         })
         .catch(err => {
-            return "Error fetching data: " + err;
+            return res.status(500).send("Error fetching data: " + err);
         })
 }
 
